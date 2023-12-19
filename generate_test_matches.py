@@ -42,7 +42,7 @@ for match in matches:
 
 # Write the matches to a csv file
 
-with open('matches_round3.csv', mode='w') as csv_file:
+with open('matches_round4.csv', mode='w') as csv_file:
     fieldnames = ['player_1_name', 'player_1_id', 'player_2_name', 'player_2_id', 'table_number', 'terrain_name']
     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
