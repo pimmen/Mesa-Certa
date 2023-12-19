@@ -1,7 +1,7 @@
 import csv
 import json
 import random
-from utils import read_matches, read_players, read_player_history, read_tables
+from utils import read_matches, read_players, read_player_history, read_tables, write_matches
 from Player import Player
 from Table import Table
 from Match import Match
@@ -39,6 +39,10 @@ def get_table_pairings(player_filename, player_history_filename, match_filename,
     # Create dictionary of possible matches on each table
 
     match_tables = {}
+    table_terrain = {}
+
+    for table in tables:
+        table_terrain[int(table.get_table_number())] = table.get_terrain_name()
 
     for match in matches:
         match_tables[match] = list([int(t.get_table_number()) for t in tables])
@@ -54,12 +58,14 @@ def get_table_pairings(player_filename, player_history_filename, match_filename,
         chosen_table = random.choice(minimum_match_tables)
         matches.remove(minimum_match)
 
-        minimum_match.set_table(chosen_table)
+        minimum_match.set_table(Table(chosen_table, table_terrain[chosen_table]))
         final_matches.append(minimum_match)
 
         match_tables = remove_table_from_matches(match_tables, chosen_table)
     
-    print([fm.get_table() for fm in final_matches])
+    return final_matches
 
-
-get_table_pairings('players.csv', 'player_history.json', 'matches.csv', 'tables.csv')
+matches_filename = 'matches_round4.csv'
+matches = get_table_pairings('players.csv', 'player_history.json', 'matches_round4.csv', 'tables.csv')
+print(matches)
+write_matches(matches, 'matches_round4.csv')
