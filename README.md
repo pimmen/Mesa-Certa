@@ -4,4 +4,4 @@ A wave function collapse algorithm to figure out assignment of tables for player
 
 ## Running
 
-The main file is ´´´pairingalgorithm.py´´´
+The main file is `pairingalgorithm.py`
