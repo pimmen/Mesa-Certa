@@ -53,3 +53,13 @@ def read_tables(filename):
             tables.append(Table(row[0], row[1]))
             line_count += 1
     return tables
+
+def write_matches(matches, filename):
+    with open(filename, mode='w') as csv_file:
+        fieldnames = ['player_1_name', 'player_1_id', 'player_2_name', 'player_2_id', 'table_number', 'terrain_name']
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+        writer.writeheader()
+        for match in matches:
+            w_match = {'player_1_name': match.get_players()[0].get_name(), 'player_1_id': match.get_players()[0].get_id(), 'player_2_name': match.get_players()[1].get_name(), 'player_2_id': match.get_players()[1].get_id(), 'table_number': match.get_table().get_table_number(), 'terrain_name': match.get_table().get_terrain_name()}
+            writer.writerow(w_match)
